@@ -1,8 +1,8 @@
 
 import './App.css';
-import Content from './components/Content/Content';
+//import Content from './components/Content/Content';
 import Employees from './components/Data/Employees';
-import Footer from './components/Footer/Footer';
+//import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
     <div className="App">
       
     <Header />
-    <Employees/>
-    <Content />
-    <Footer />
+    <Employees />
+   
+    
       
     </div>
   );

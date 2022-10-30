@@ -5,6 +5,9 @@ import "./Employees.css"
 
 const Employees =() =>{
 
+    const [selectedTeam,setTeam] = useState("TeamB");
+
+
     const [employees,setEmployees] = useState([
         {id:1,fullName:"Hasan Mohamed",designation:"C# Developer",gender:"male",teamName:"TeamA"},
         {id:2,fullName:"Ahmed Hazem",designation:"Java Developer",gender:"male",teamName:"TeamB"},
@@ -20,13 +23,27 @@ const Employees =() =>{
         {id:12,fullName:"Hana El-masry",designation:"Project Manager",gender:"female",teamName:"TeamA"}
     ])
 
+    function handleTeamChange(event){
+
+        
+        setTeam(event.target.value);
+
+    }
+    function handleEmployeeCardClick(event){
+        const transformedEmployees = employees.map((employee)=>employee.id===parseInt(event.currentTarget.id)
+                                                    ?(employee.teamName===selectedTeam)?{...employee, teamName:''}:{...employee,teamName:selectedTeam}:
+                                                    employee);
+
+        setEmployees(transformedEmployees);
+
+    }
 
     return(
         <main className="container">
 
-        <div class="row justify-content-center mt-3 mb-3">
+        <div className="row justify-content-center mt-3 mb-3">
                 <div class="col-6">
-                    <select className="form-select form-select-lg">
+                    <select className="form-select form-select-lg" value={selectedTeam} onChange={handleTeamChange}>
                         <option value="TeamA">Team A</option>
                         <option value="TeamB">Team B</option>
                         <option value="TeamC">Team C</option>
@@ -45,7 +62,7 @@ const Employees =() =>{
 
             {
                 employees.map((employee) => (
-                    <div id={employee.id} className="card m-2">
+                    <div id={employee.id} className={(employee.teamName===selectedTeam ? 'card m-2 standout':'card m-2')} onClick={handleEmployeeCardClick}>
                         
                         {(employee.gender==="male")?<img src={malepp}   className="card-img-top" alt="pp"/>:
                                                     <img src={femalepp} className="card-img-top" alt="pp"/>}
