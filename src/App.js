@@ -1,16 +1,59 @@
 
 import './App.css';
+import { useState } from "react"
 //import Content from './components/Content/Content';
 import Employees from './components/Data/Employees';
 //import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 
 function App() {
+  const [selectedTeam,setTeam] = useState("TeamB");
+
+
+  const [employees,setEmployees] = useState([
+      {id:1,fullName:"Hasan Mohamed",designation:"C# Developer",gender:"male",teamName:"TeamA"},
+      {id:2,fullName:"Ahmed Hazem",designation:"Java Developer",gender:"male",teamName:"TeamB"},
+      {id:3,fullName:"Mahmoud Mohamed",designation:"Python Developer",gender:"male",teamName:"TeamA"},
+      {id:4,fullName:"Salma Khaled",designation:"C++ Developer",gender:"female",teamName:"TeamC"},
+      {id:5,fullName:"Soha Mohamed",designation:"Vue Developer",gender:"female",teamName:"TeamA"},
+      {id:6,fullName:"Norhan Ahmed",designation:"Graphic Designer",gender:"female",teamName:"TeamB"},
+      {id:7,fullName:"Omar Mohamed",designation:"API Developer",gender:"male",teamName:"TeamC"},
+      {id:8,fullName:"Adham Ezz",designation:"C# Developer",gender:"male",teamName:"TeamB"},
+      {id:9,fullName:"Tarek Ahmed",designation:"Web Developer",gender:"male",teamName:"TeamA"},
+      {id:10,fullName:"Mostafa Haytham",designation:"C# Developer",gender:"male",teamName:"TeamC"},
+      {id:11,fullName:"Noura Mohamed",designation:"C++ Developer",gender:"female",teamName:"TeamB"},
+      {id:12,fullName:"Hana El-masry",designation:"Project Manager",gender:"female",teamName:"TeamA"}
+  ])
+
+  function handleTeamChange(event){
+
+      
+      setTeam(event.target.value);
+
+  }
+  function handleEmployeeCardClick(event){
+      const transformedEmployees = employees.map((employee)=>employee.id===parseInt(event.currentTarget.id)
+                                                  ?(employee.teamName===selectedTeam)?{...employee, teamName:''}:
+                                                  {...employee,teamName:selectedTeam}:
+                                                  employee);
+
+      setEmployees(transformedEmployees);
+
+  }
+
   return (
     <div className="App">
       
-    <Header />
-    <Employees />
+    <Header
+    selectedTeam ={selectedTeam}
+    teamMemberCount = {employees.filter((employee)=>employee.teamName===selectedTeam).length}
+    />
+    <Employees
+    employees={employees}
+    selectedTeam={selectedTeam}
+    handleEmployeeCardClick={handleEmployeeCardClick}
+    handleTeamChange={handleTeamChange}
+    />
    
     
       
