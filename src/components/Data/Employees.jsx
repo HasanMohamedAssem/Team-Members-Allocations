@@ -27,7 +27,7 @@ const Employees =({employees,selectedTeam,handleEmployeeCardClick,handleTeamChan
 
             {
                 employees.map((employee) => (
-                    <div id={employee.id} className={(employee.teamName===selectedTeam ? 'card m-2 standout':'card m-2')} onClick={handleEmployeeCardClick}>
+                    <div key={employee.id} id={employee.id} className={(employee.teamName===selectedTeam ? 'card m-2 standout':'card m-2')} onClick={handleEmployeeCardClick}>
                         
                         {(employee.gender==="male")?<img src={malepp}   className="card-img-top" alt="pp"/>:
                                                     <img src={femalepp} className="card-img-top" alt="pp"/>}

@@ -1,16 +1,17 @@
 
 import './App.css';
-import { useState } from "react"
+import { useState,useEffect } from "react"
 //import Content from './components/Content/Content';
 import Employees from './components/Data/Employees';
-//import Footer from './components/Footer/Footer';
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 
 function App() {
-  const [selectedTeam,setTeam] = useState("TeamB");
+  const [selectedTeam,setTeam] = useState(JSON.parse(localStorage.getItem('selectedTeam'))||"TeamB");
 
 
-  const [employees,setEmployees] = useState([
+  const [employees,setEmployees] = useState(JSON.parse(localStorage.getItem('employeeList'))||
+  [
       {id:1,fullName:"Hasan Mohamed",designation:"C# Developer",gender:"male",teamName:"TeamA"},
       {id:2,fullName:"Ahmed Hazem",designation:"Java Developer",gender:"male",teamName:"TeamB"},
       {id:3,fullName:"Mahmoud Mohamed",designation:"Python Developer",gender:"male",teamName:"TeamA"},
@@ -24,6 +25,17 @@ function App() {
       {id:11,fullName:"Noura Mohamed",designation:"C++ Developer",gender:"female",teamName:"TeamB"},
       {id:12,fullName:"Hana El-masry",designation:"Project Manager",gender:"female",teamName:"TeamA"}
   ])
+
+
+
+useEffect(()=>{
+  localStorage.setItem('employeeList',JSON.stringify(employees))
+
+},[employees]);
+useEffect(()=>{
+  localStorage.setItem('selectedTeam',JSON.stringify(selectedTeam))
+
+},[selectedTeam]);
 
   function handleTeamChange(event){
 
@@ -55,7 +67,7 @@ function App() {
     handleTeamChange={handleTeamChange}
     />
    
-    
+    <Footer/>
       
     </div>
   );
