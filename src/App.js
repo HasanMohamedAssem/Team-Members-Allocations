@@ -5,6 +5,10 @@ import { useState,useEffect } from "react"
 import Employees from './components/Data/Employees';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import GroupedTeamMembers from "../src/components/groupedteammember/GroupedTeamMembers"
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
+import Nav from './components/navbar/Nav';
+import NotFound from './components/not found/NotFound';
 
 function App() {
   const [selectedTeam,setTeam] = useState(JSON.parse(localStorage.getItem('selectedTeam'))||"TeamB");
@@ -55,19 +59,37 @@ useEffect(()=>{
 
   return (
     <div className="App">
-      
+  <Router> 
+    <Nav/>
     <Header
     selectedTeam ={selectedTeam}
     teamMemberCount = {employees.filter((employee)=>employee.teamName===selectedTeam).length}
     />
-    <Employees
-    employees={employees}
-    selectedTeam={selectedTeam}
-    handleEmployeeCardClick={handleEmployeeCardClick}
-    handleTeamChange={handleTeamChange}
-    />
+<Routes>
+
+<Route path ="/"
+element={ <Employees
+  employees={employees}
+  selectedTeam={selectedTeam}
+  handleEmployeeCardClick={handleEmployeeCardClick}
+  handleTeamChange={handleTeamChange}
+  />}
+> 
+    </Route>
+
+    <Route
+    path="/GroupedTeamMembers"
+    element={<GroupedTeamMembers/>}
+    ></Route>
+
+<Route
+    path="*"
+    element={<NotFound/>}
+    ></Route>
+    </Routes>
    
     <Footer/>
+    </Router>
       
     </div>
   );
